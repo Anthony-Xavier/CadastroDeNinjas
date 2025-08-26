@@ -2,6 +2,8 @@ package dev.java10x.CadastroDeNinjas.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_cadastro")
 public class NinjaModel {
@@ -12,6 +14,11 @@ public class NinjaModel {
     private String name;
     private String emial;
     private int age;
+
+    //Um ninja tem uma unica missao
+    @ManyToOne
+    @JoinColumn(name = "missoes_id")//Fk
+    private MissaoModel missoes;
 
     public NinjaModel(){}
 
