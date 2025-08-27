@@ -1,9 +1,21 @@
 package dev.java10x.CadastroDeNinjas.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_missao")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MissaoModel {
 
     @Id
@@ -14,14 +26,9 @@ public class MissaoModel {
 
     //Uma missao pode ter varios ninjas
     @OneToMany(mappedBy = "missoes")
-    private NinjaModel ninja;
-
-    private MissaoModel(){}
-
-    public MissaoModel(String nomeMissao, String dificuldade) {
-        this.nomeMissao = nomeMissao;
-        this.dificuldade = dificuldade;
-    }
+    @JsonIgnoreProperties("missoes")
+    @JsonIgnore
+    private List<NinjaModel> ninjas;
 
     public String getNomeMissao() {
         return nomeMissao;
@@ -37,5 +44,13 @@ public class MissaoModel {
 
     public void setDificuldade(String dificuldade) {
         this.dificuldade = dificuldade;
+    }
+
+    public List<NinjaModel> getNinjas() {
+        return ninjas;
+    }
+
+    public void setNinjas(List<NinjaModel> ninjas) {
+        this.ninjas = ninjas;
     }
 }

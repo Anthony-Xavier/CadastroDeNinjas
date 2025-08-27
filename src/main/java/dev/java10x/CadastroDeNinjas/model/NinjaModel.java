@@ -1,32 +1,31 @@
 package dev.java10x.CadastroDeNinjas.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tb_cadastro")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class NinjaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String emial;
+    private String email;
     private int age;
 
     //Um ninja tem uma unica missao
     @ManyToOne
-    @JoinColumn(name = "missoes_id")//Fk
+    @JoinColumn(name = "missoes_id")
     private MissaoModel missoes;
-
-    public NinjaModel(){}
-
-    public NinjaModel(String name, String emial, int age) {
-        this.name = name;
-        this.emial = emial;
-        this.age = age;
-    }
 
     public String getName() {
         return name;
@@ -36,12 +35,12 @@ public class NinjaModel {
         this.name = name;
     }
 
-    public String getEmial() {
-        return emial;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmial(String emial) {
-        this.emial = emial;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getAge() {
@@ -50,5 +49,13 @@ public class NinjaModel {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public MissaoModel getMissoes() {
+        return missoes;
+    }
+
+    public void setMissoes(MissaoModel missoes) {
+        this.missoes = missoes;
     }
 }
